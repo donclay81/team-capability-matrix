@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Practice Team Capability Matrix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1BA1E2, #0078D4);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .matrix-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            color: #323130;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #605E5C;
+        }
+
+        .team-grid {
+            display: grid;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .team-role {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #E1DFDD;
+            transition: all 0.3s ease;
+        }
+
+        .team-role:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: #0078D4;
+        }
+
+        .role-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #F3F2F1;
+        }
+
+        .role-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0078D4, #00BCF2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-right: 20px;
+        }
+
+        .role-info h3 {
+            font-size: 1.5rem;
+            color: #323130;
+            margin-bottom: 5px;
+        }
+
+        .role-count {
+            color: #605E5C;
+            font-size: 1rem;
+        }
+
+        .transformation-arrow {
+            color: #0078D4;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .skills-progression {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .current-skills, .future-skills {
+            background: #F8F9FA;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .current-skills {
+            border: 2px solid #E1DFDD;
+        }
+
+        .future-skills {
+            border: 2px solid #0078D4;
+            background: linear-gradient(135deg, #F0F8FF, #E6F3FF);
+        }
+
+        .skills-title {
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin: 4px;
+            font-size: 0.85rem;
+            border: 1px solid #E1DFDD;
+        }
+
+        .future-skills .skill-tag {
+            background: #0078D4;
+            color: white;
+            border: none;
+        }
+
+        .arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #0078D4;
+        }
+
+        .training-requirements {
+            background: linear-gradient(135deg, #FFF4CE, #FCF4DD);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .req-title {
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .req-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .req-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .req-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #605E5C;
+        }
+
+        .req-item::before {
+            content: '•';
+            color: #0078D4;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .kpi-section {
+            background: linear-gradient(135deg, #E5F3FF, #CCE5FF);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .kpi-item {
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0078D4;
+            display: block;
+        }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            color: #605E5C;
+        }
+
+        .timeline-overview {
+            background: #323130;
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .timeline-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .timeline-phases {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .phase {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .phase-month {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00BCF2;
+            margin-bottom: 10px;
+        }
+
+        .phase-focus {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .competency-levels {
+            background: #F8F9FA;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .comp-title {
+            font-size: 1.8rem;
+            color: #323130;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .level-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #E1DFDD;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .level-card:hover {
+            transform: translateY(-5px);
+            border-color: #0078D4;
+        }
+
+        .level-number {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 40px;
+            height: 40px;
+            background: #0078D4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .level-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 10px;
+        }
+
+        .level-desc {
+            font-size: 0.85rem;
+            color: #605E5C;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 1200px) {
+            .req-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-phases {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .levels-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skills-progression {
+                grid-template-columns: 1fr;
+            }
+            
+            .arrow-container {
+                transform: rotate(90deg);
+                margin: 20px 0;
+            }
+            
+            .kpi-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .timeline-phases {
+                grid-template-columns: 1fr;
+            }
+            
+            .levels-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-container">
+        <div class="header">
+            <h1 class="main-title">Team Capability Transformation Matrix</h1>
+            <p class="subtitle">Elevating Your Team from Traditional Consulting to AI Excellence</p>
+        </div>
+
+        <div class="team-grid">
+            <!-- Power Platform Team -->
+            <div class="team-role">
+                <div class="role-header">
+                    <div class="role-icon">⚡</div>
+                    <div class="role-info">
+                        <h3>Power Platform Consultants <span class="transformation-arrow">→</span> AI Automation Architects</h3>
+                        <p class="role-count">3-4 Team Members</p>
+                    </div>
+                </div>
+
+                <div class="skills-progression">
+                    <div class="current-skills">
+                        <p class="skills-title">Current Expertise</p>
+                        <span class="skill-tag">Power Automate</span>
+                        <span class="skill-tag">Power Apps</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Dataverse</span>
+                        <span class="skill-tag">Business Logic</span>
+                    </div>
+                    <div class="arrow-container">➜</div>
+                    <div class="future-skills">
+                        <p class="skills-title">Enhanced AI Capabilities</p>
+                        <span class="skill-tag">Copilot Studio</span>
+                        <span class="skill-tag">AI Builder</span>
+                        <span class="skill-tag">Azure OpenAI</span>
+                        <span class="skill-tag">Document Intelligence</span>
+                        <span class="skill-tag">Prompt Engineering</span>
+                    </div>
+                </div>
+
+                <div class="training-requirements">
+                    <p class="req-title"><span class="req-icon">📚</span>Key Training Requirements</p>
+                    <div class="req-grid">
+                        <div class="req-item">AI-102 Certification</div>
+                        <div class="req-item">PL-600 Solution Architect</div>
+                        <div class="req-item">Copilot Studio Mastery</div>
+                        <div class="req-item">Arabic Language AI</div>
+                    </div>
+                </div>
+
+                <div class="kpi-section">
+                    <div class="kpi-item">
+                        <span class="kpi-value">132+</span>
+                        <span class="kpi-label">Training Hours</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">Month 4</span>
+                        <span class="kpi-label">Certification Target</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">3+</span>
+                        <span class="kpi-label">AI Projects Led</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">95%</span>
+                        <span class="kpi-label">Customer Satisfaction</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamics 365 Team -->
+            <div class="team-role">
+                <div class="role-header">
+                    <div class="role-icon">💼</div>
+                    <div class="role-info">
+                        <h3>Dynamics 365 Consultants <span class="transformation-arrow">→</span> AI Business Solutions Experts</h3>
+                        <p class="role-count">4-5 Team Members</p>
+                    </div>
+                </div>
+
+                <div class="skills-progression">
+                    <div class="current-skills">
+                        <p class="skills-title">Current Expertise</p>
+                        <span class="skill-tag">D365 Sales</span>
+                        <span class="skill-tag">D365 Finance</span>
+                        <span class="skill-tag">Business Central</span>
+                        <span class="skill-tag">CRM Configuration</span>
+                        <span class="skill-tag">Process Optimization</span>
+                    </div>
+                    <div class="arrow-container">➜</div>
+                    <div class="future-skills">
+                        <p class="skills-title">Enhanced AI Capabilities</p>
+                        <span class="skill-tag">Copilot for Sales</span>
+                        <span class="skill-tag">AI Finance Insights</span>
+                        <span class="skill-tag">Predictive Analytics</span>
+                        <span class="skill-tag">Conversation Intelligence</span>
+                        <span class="skill-tag">Supply Chain AI</span>
+                    </div>
+                </div>
+
+                <div class="training-requirements">
+                    <p class="req-title"><span class="req-icon">📚</span>Key Training Requirements</p>
+                    <div class="req-grid">
+                        <div class="req-item">Copilot for Sales Config</div>
+                        <div class="req-item">AI-900 Fundamentals</div>
+                        <div class="req-item">Sales Intelligence</div>
+                        <div class="req-item">Financial AI Analytics</div>
+                    </div>
+                </div>
+
+                <div class="kpi-section">
+                    <div class="kpi-item">
+                        <span class="kpi-value">125+</span>
+                        <span class="kpi-label">Training Hours</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">Month 5</span>
+                        <span class="kpi-label">Certification Target</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">4+</span>
+                        <span class="kpi-label">AI Implementations</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">90%</span>
+                        <span class="kpi-label">Adoption Rate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Team -->
+            <div class="team-role">
+                <div class="role-header">
+                    <div class="role-icon">🎯</div>
+                    <div class="role-info">
+                        <h3>Sales Team <span class="transformation-arrow">→</span> AI Solutions Consultants</h3>
+                        <p class="role-count">3-4 Team Members</p>
+                    </div>
+                </div>
+
+                <div class="skills-progression">
+                    <div class="current-skills">
+                        <p class="skills-title">Current Expertise</p>
+                        <span class="skill-tag">Solution Selling</span>
+                        <span class="skill-tag">Customer Relations</span>
+                        <span class="skill-tag">Product Knowledge</span>
+                        <span class="skill-tag">Deal Negotiation</span>
+                        <span class="skill-tag">Account Management</span>
+                    </div>
+                    <div class="arrow-container">➜</div>
+                    <div class="future-skills">
+                        <p class="skills-title">Enhanced AI Capabilities</p>
+                        <span class="skill-tag">AI Value Positioning</span>
+                        <span class="skill-tag">Technical Demonstrations</span>
+                        <span class="skill-tag">ROI Modeling</span>
+                        <span class="skill-tag">Use Case Development</span>
+                        <span class="skill-tag">Executive Engagement</span>
+                    </div>
+                </div>
+
+                <div class="training-requirements">
+                    <p class="req-title"><span class="req-icon">📚</span>Key Training Requirements</p>
+                    <div class="req-grid">
+                        <div class="req-item">AI Ecosystem Overview</div>
+                        <div class="req-item">Solution Positioning</div>
+                        <div class="req-item">Industry Use Cases</div>
+                        <div class="req-item">Arabic Business Skills</div>
+                    </div>
+                </div>
+
+                <div class="kpi-section">
+                    <div class="kpi-item">
+                        <span class="kpi-value">115+</span>
+                        <span class="kpi-label">Training Hours</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">Month 3</span>
+                        <span class="kpi-label">Training Complete</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">25%</span>
+                        <span class="kpi-label">Conversion Rate</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">12+</span>
+                        <span class="kpi-label">Deals by Month 6</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marketing Team -->
+            <div class="team-role">
+                <div class="role-header">
+                    <div class="role-icon">📢</div>
+                    <div class="role-info">
+                        <h3>Marketing Team <span class="transformation-arrow">→</span> AI Solutions Marketing Specialists</h3>
+                        <p class="role-count">2-3 Team Members</p>
+                    </div>
+                </div>
+
+                <div class="skills-progression">
+                    <div class="current-skills">
+                        <p class="skills-title">Current Expertise</p>
+                        <span class="skill-tag">Content Creation</span>
+                        <span class="skill-tag">Digital Marketing</span>
+                        <span class="skill-tag">Lead Generation</span>
+                        <span class="skill-tag">Brand Management</span>
+                        <span class="skill-tag">Event Planning</span>
+                    </div>
+                    <div class="arrow-container">➜</div>
+                    <div class="future-skills">
+                        <p class="skills-title">Enhanced AI Capabilities</p>
+                        <span class="skill-tag">Technical Storytelling</span>
+                        <span class="skill-tag">AI Portfolio Expertise</span>
+                        <span class="skill-tag">Thought Leadership</span>
+                        <span class="skill-tag">Case Study Development</span>
+                        <span class="skill-tag">Arabic AI Content</span>
+                    </div>
+                </div>
+
+                <div class="training-requirements">
+                    <p class="req-title"><span class="req-icon">📚</span>Key Training Requirements</p>
+                    <div class="req-grid">
+                        <div class="req-item">AI Portfolio Deep Dive</div>
+                        <div class="req-item">B2B AI Marketing</div>
+                        <div class="req-item">Technical Content</div>
+                        <div class="req-item">Industry Analysis</div>
+                    </div>
+                </div>
+
+                <div class="kpi-section">
+                    <div class="kpi-item">
+                        <span class="kpi-value">87+</span>
+                        <span class="kpi-label">Training Hours</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">25+</span>
+                        <span class="kpi-label">Leads/Month</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">10+</span>
+                        <span class="kpi-label">Content/Month</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-value">75%</span>
+                        <span class="kpi-label">Brand Recognition</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-overview">
+            <h2 class="timeline-title">Transformation Timeline</h2>
+            <div class="timeline-phases">
+                <div class="phase">
+                    <p class="phase-month">Months 1-2</p>
+                    <p class="phase-focus">Foundation & Assessment<br>Basic AI Training<br>Environment Setup</p>
+                </div>
+                <div class="phase">
+                    <p class="phase-month">Months 3-4</p>
+                    <p class="phase-focus">Intensive Training<br>First Certifications<br>Pilot Projects</p>
+                </div>
+                <div class="phase">
+                    <p class="phase-month">Months 5-6</p>
+                    <p class="phase-focus">Advanced Certs<br>Customer Projects<br>Market Entry</p>
+                </div>
+                <div class="phase">
+                    <p class="phase-month">Months 7+</p>
+                    <p class="phase-focus">Market Leadership<br>Specializations<br>Innovation Lab</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="competency-levels">
+            <h2 class="comp-title">AI Competency Progression</h2>
+            <div class="levels-grid">
+                <div class="level-card">
+                    <div class="level-number">1</div>
+                    <h3 class="level-name">Foundational</h3>
+                    <p class="level-desc">Basic AI concepts, Microsoft AI portfolio understanding, initial tool exposure</p>
+                </div>
+                <div class="level-card">
+                    <div class="level-number">2</div>
+                    <h3 class="level-name">Practitioner</h3>
+                    <p class="level-desc">Hands-on implementation skills, certification completion, customer pilot projects</p>
+                </div>
+                <div class="level-card">
+                    <div class="level-number">3</div>
+                    <h3 class="level-name">Advanced</h3>
+                    <p class="level-desc">Complex solution design, industry specialization, thought leadership</p>
+                </div>
+                <div class="level-card">
+                    <div class="level-number">4</div>
+                    <h3 class="level-name">Expert</h3>
+                    <p class="level-desc">Innovation leadership, IP development, strategic partnerships, regional recognition</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
